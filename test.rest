@@ -1,0 +1,11 @@
+get http://localhost:3000
+
+###
+post http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "Vik",
+    "email": "mjopp0@merriam-webster.com",
+    "password": "uehSLnl"
+}
