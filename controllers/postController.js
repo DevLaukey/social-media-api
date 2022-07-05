@@ -106,11 +106,11 @@ module.exports = {
                  res.json({
                    status: 200,
                    success: true,
-                   message: "comment added successfully",
+                   message: "reply added successfully",
                    results: result.recordset,
                  });
              })
-             .then(console.log("Successfully added"))
+             .then(console.log(" reply added successfully"))
              .catch((err) => {
                console.log(err);
              });
