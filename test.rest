@@ -26,9 +26,17 @@ Content-Type: application/json
 {
    "url" : "https://www.instagram.com/static/images/homepage/screenshots/screenshot3.png/94edb770accf.png",
    "heading": "instagram",
-   "description": "This is a dope app",
-   "comments": "I love this",
+   "description": "Working",
    "likes": 3,
-   "replies":"Thanks for your feedback",
    "userID": 1   
+}   
+
+###
+post http://localhost:3000/add-comments/2
+Content-Type: application/json
+
+{
+    "comment": "This is a comment",
+    "userID": 1,
+    "postID": 2
 }
