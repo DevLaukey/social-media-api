@@ -18,3 +18,17 @@ Content-Type: application/json
     "username": "u",  
     "password": "csdp"
 }
+
+###
+post http://localhost:3000/add-posts
+Content-Type: application/json
+
+{
+   "url" : "https://www.instagram.com/static/images/homepage/screenshots/screenshot3.png/94edb770accf.png",
+   "heading": "instagram",
+   "description": "This is a dope app",
+   "comments": "I love this",
+   "likes": 3,
+   "replies":"Thanks for your feedback",
+   "userID": 1   
+}
