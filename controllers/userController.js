@@ -23,7 +23,9 @@ module.exports = {
     const { username, password } = req.body;
     let pool = await poolPromise();
     pool
-      .query(`SELECT password FROM Users WHERE username = '${username}' `)
+      .request()
+      .input("username", username)
+      .execute(`dbo.login_user`)
       .then((result) => {
         try {
           if (result.recordset.length > 0) {
