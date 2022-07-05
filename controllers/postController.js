@@ -26,7 +26,6 @@ module.exports = {
     let { comment, userID, postID } = req.body;
     let { id } = req.params;
     let pool = await poolPromise();
-    console.log(id);
     if (id == postID) {
       pool
         .request()
@@ -92,5 +91,36 @@ module.exports = {
               message: "no records found",
             });
       });
-  },
+    },
+    addReply: async function (req, res) {
+        let pool = await poolPromise();
+        let { reply, userID, commentID } = req.body;    
+         if (userID) {
+           pool
+             .request()
+             .input("reply", reply)
+             .input("commentID", commentID)
+             .execute(`dbo.add_reply`)
+             .then((result) => {
+               result.rowsAffected &&
+                 res.json({
+                   status: 200,
+                   success: true,
+                   message: "comment added successfully",
+                   results: result.recordset,
+                 });
+             })
+             .then(console.log("Successfully added"))
+             .catch((err) => {
+               console.log(err);
+             });
+         } else {
+           res.json({
+             status: 401,
+             success: false,
+             message: "unauthorized",
+             results: {},
+           });
+         }
+  }
 };

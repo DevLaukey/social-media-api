@@ -4,8 +4,10 @@ const {
   addPost,
   viewPosts,
   addComment,
-  viewComments,
+    viewComments,
+  addReply
 } = require("../controllers/postController");
+
 
 const router = express.Router();
 
@@ -17,5 +19,6 @@ router.post("/login", login);
 router.post("/add-comments/:id", addComment);
 router.get("/post/comments/:postID", viewComments);
 router.post("/add-posts", addPost);
+router.post("/post/comments/reply/:postID", addReply)
 
 module.exports = router;
