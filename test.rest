@@ -5,7 +5,16 @@ post http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "username": "Vik",
-    "email": "mjopp0@merriam-webster.com",
-    "password": "uehSLnl"
+    "username": "Vicky",
+    "email": "laukey3",
+    "password": "123456"
+}
+
+###
+post http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Vicky",  
+    "password": "123456"
 }

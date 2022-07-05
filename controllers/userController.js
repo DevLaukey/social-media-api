@@ -19,4 +19,37 @@ module.exports = {
         console.log(err);
       });
   },
+  login: async (req, res) => {
+    const { username, password } = req.body;
+    let pool = await poolPromise();
+    pool
+      .query(`SELECT password FROM Users WHERE username = '${username}' `)
+      .then((result) => {
+        try {
+          if (result.recordset.length > 0) {
+            if (result.recordset[0].password === password) {
+              res.json({
+                status: 200,
+                success: true,
+                message: "Successfully logged In",
+              });
+            } else {
+              res.json({
+                status: 401,
+                success: false,
+                message: "Incorrect password",
+              });
+            }
+          } else {
+            res.json({
+              status: 404,
+              success: false,
+              message: "User not found",
+            });
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+  },
 };
