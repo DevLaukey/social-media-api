@@ -21,7 +21,24 @@ module.exports = {
       })
       .then(console.log("Successfully added"))
       .catch((err) => {
-        console.log("sdvd"+err);
+        console.log("sdvd" + err);
       });
+  },
+  viewPosts: async function (req, res) {
+    let pool = await poolPromise();
+    pool.query(`SELECT * FROM Posts`).then((results) => {
+      results.recordset.length
+        ? res.json({
+            status: 200,
+            success: true,
+            message: "success",
+            results: results.recordset,
+          })
+        : res.json({
+            status: 200,
+            success: false,
+            message: "no records found",
+          });
+    });
   },
 };
