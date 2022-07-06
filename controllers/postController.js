@@ -1,6 +1,24 @@
 const poolPromise = require("../config/poolPromise");
 
 module.exports = {
+  // posts
+  viewPosts: async function (req, res) {
+    let pool = await poolPromise();
+    pool.query(`SELECT * FROM Posts`).then((results) => {
+      results.recordset.length
+        ? res.json({
+            status: 200,
+            success: true,
+            message: "success",
+            results: results.recordset,
+          })
+        : res.json({
+            status: 200,
+            success: false,
+            message: "no records found",
+          });
+    });
+  },
   addPost: async (req, res) => {
     let { url, heading, description, comments, likes, replies, userID } =
       req.body;
@@ -22,6 +40,7 @@ module.exports = {
         console.log(err);
       });
   },
+  // comments
   addComment: async function (req, res) {
     let { comment, userID, postID } = req.body;
     let { id } = req.params;
@@ -47,31 +66,15 @@ module.exports = {
           console.log(err);
         });
     } else {
-       res.json({
-         status: 401,
-         success: false,
-         message: "unauthorized",
-         results: {},
-       });
+      res.json({
+        status: 401,
+        success: false,
+        message: "unauthorized",
+        results: {},
+      });
     }
   },
-  viewPosts: async function (req, res) {
-    let pool = await poolPromise();
-    pool.query(`SELECT * FROM Posts`).then((results) => {
-      results.recordset.length
-        ? res.json({
-            status: 200,
-            success: true,
-            message: "success",
-            results: results.recordset,
-          })
-        : res.json({
-            status: 200,
-            success: false,
-            message: "no records found",
-          });
-    });
-  },
+
   viewComments: async function (req, res) {
     let pool = await poolPromise();
     const id = req.params.postId;
@@ -91,36 +94,37 @@ module.exports = {
               message: "no records found",
             });
       });
-    },
-    addReply: async function (req, res) {
-        let pool = await poolPromise();
-        let { reply, userID, commentID } = req.body;    
-         if (userID) {
-           pool
-             .request()
-             .input("reply", reply)
-             .input("commentID", commentID)
-             .execute(`dbo.add_reply`)
-             .then((result) => {
-               result.rowsAffected &&
-                 res.json({
-                   status: 200,
-                   success: true,
-                   message: "reply added successfully",
-                   results: result.recordset,
-                 });
-             })
-             .then(console.log(" reply added successfully"))
-             .catch((err) => {
-               console.log(err);
-             });
-         } else {
-           res.json({
-             status: 401,
-             success: false,
-             message: "unauthorized",
-             results: {},
-           });
-         }
-  }
+  },
+  // reply
+  addReply: async function (req, res) {
+    let pool = await poolPromise();
+    let { reply, userID, commentID } = req.body;
+    if (userID) {
+      pool
+        .request()
+        .input("reply", reply)
+        .input("commentID", commentID)
+        .execute(`dbo.add_reply`)
+        .then((result) => {
+          result.rowsAffected &&
+            res.json({
+              status: 200,
+              success: true,
+              message: "reply added successfully",
+              results: result.recordset,
+            });
+        })
+        .then(console.log(" reply added successfully"))
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      res.json({
+        status: 401,
+        success: false,
+        message: "unauthorized",
+        results: {},
+      });
+    }
+  },
 };

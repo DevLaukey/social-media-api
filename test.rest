@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
     "username": "u",  
-    "password": "csdp"
+    "password": "p"
 }
 
 ###
@@ -39,4 +39,14 @@ Content-Type: application/json
     "comment": "This is a comment",
     "userID": 1,
     "postID": 2
+}
+
+###
+post http://localhost:3000/post/comments/reply/1
+Content-Type: application/json
+
+{
+    "reply": "This is a reply",
+    "userID": 1,
+    "commentID": 1
 }
