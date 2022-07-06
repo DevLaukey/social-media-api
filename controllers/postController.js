@@ -66,7 +66,7 @@ module.exports = {
           console.log(err);
         });
     } else {
-      res.json({
+      res.status(401).json({
         status: 401,
         success: false,
         message: "unauthorized",

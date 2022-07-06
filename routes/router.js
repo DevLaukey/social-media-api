@@ -8,15 +8,15 @@ const {
   addReply,
 } = require("../controllers/postController");
 
-const {authorize} = require("../middlewares/auth")
+const { authorize } = require("../middlewares/auth");
 const router = express.Router();
 
 // posts
 router.get("/", viewPosts);
 router.post("/add-posts", authorize, addPost);
 router.post("/add-comments/:id", authorize, addComment);
-router.get("/post/comments/:postID",authorize, viewComments);
-router.post("/post/comments/reply/:postID",authorize, addReply);
+router.get("/post/comments/:postID", authorize, viewComments);
+router.post("/post/comments/reply/:postID", authorize, addReply);
 
 // users
 router.post("/register", signUp);

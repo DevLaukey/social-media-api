@@ -1,9 +1,7 @@
-const express = require('express');
-const router = require('./routes/router');
-const cors = require('cors');
+const express = require("express");
+const router = require("./routes/router");
+const cors = require("cors");
 const sessions = require("express-session");
-
-
 
 const app = express();
 
@@ -13,16 +11,14 @@ app.use(
   sessions({
     secret: "thisismysecrctekey",
     resave: false,
-    saveUninitialized: false,
-    
+    saveUninitialized: true,
+    maxAge: 1,
   })
 );
-
 
 app.use(express.json());
 app.use(cors());
 app.use("/", router);
-
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
@@ -38,7 +34,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-
 app.listen(port, () => {
-    console.log(`running port: ${port}`);
-})
+  console.log(`running port: ${port}`);
+});

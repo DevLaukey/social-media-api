@@ -31,7 +31,7 @@ module.exports = {
           if (result.recordset.length > 0) {
             if (result.recordset[0].password === password) {
               (req.session.isAuthenticated = true),
-                // console.log(req.session.isAuthenticated);
+                console.log(req.session.isAuthenticated);
                 res.json({
                   status: 200,
                   success: true,

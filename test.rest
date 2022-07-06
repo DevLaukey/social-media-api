@@ -50,3 +50,6 @@ Content-Type: application/json
     "userID": 1,
     "commentID": 1
 }
+
+###
+get http://localhost:3000/post/comments/1
