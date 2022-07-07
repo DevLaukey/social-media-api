@@ -4,20 +4,23 @@ module.exports = {
   // posts
   viewPosts: async function (req, res) {
     let pool = await poolPromise();
-    pool.query(`SELECT * FROM Posts`).then((results) => {
-      results.recordset.length
-        ? res.json({
-            status: 200,
-            success: true,
-            message: "success",
-            results: results.recordset,
-          })
-        : res.json({
-            status: 200,
-            success: false,
-            message: "no records found",
-          });
-    });
+    pool
+      .request()
+      .execute(`dbo.view_posts`)
+      .then((results) => {
+        results.recordset.length
+          ? res.json({
+              status: 200,
+              success: true,
+              message: "success",
+              results: results.recordset,
+            })
+          : res.json({
+              status: 404,
+              success: false,
+              message: "no records found",
+            });
+      });
   },
   addPost: async (req, res) => {
     let { url, heading, description, comments, likes, replies, userID } =
@@ -37,7 +40,7 @@ module.exports = {
       })
       .then(console.log("Successfully added"))
       .catch((err) => {
-        console.log(err);
+        res.status(501).send(err.message);
       });
   },
   // comments
