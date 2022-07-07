@@ -79,7 +79,7 @@ module.exports = {
     let pool = await poolPromise();
     const id = req.params.postId;
     pool
-      .query(`SELECT * FROM comments WHERE postID ='${1}'`)
+      .query(`SELECT * FROM comments WHERE postID ='${id}'`) // to handle
       .then((results) => {
         results.recordset.length
           ? res.json({

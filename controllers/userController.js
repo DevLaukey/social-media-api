@@ -3,7 +3,6 @@ const poolPromise = require("../config/poolPromise");
 module.exports = {
   signUp: async (req, res) => {
     let { username, email, password } = req.body;
-
     let pool = await poolPromise();
     pool
       .request()
@@ -14,9 +13,8 @@ module.exports = {
       .then((result) => {
         result.rowsAffected && res.send("Successfully registered");
       })
-      .then(console.log("Successfully registered"))
       .catch((err) => {
-        console.log(err);
+        res.status(502).send(err.message);
       });
   },
   login: async (req, res) => {
@@ -32,11 +30,11 @@ module.exports = {
             if (result.recordset[0].password === password) {
               (req.session.isAuthenticated = true),
                 console.log(req.session.isAuthenticated);
-                res.json({
-                  status: 200,
-                  success: true,
-                  message: "Successfully logged In",
-                });
+              res.json({
+                status: 200,
+                success: true,
+                message: "Successfully logged In",
+              });
             } else {
               res.json({
                 status: 401,
@@ -45,7 +43,7 @@ module.exports = {
               });
             }
           } else {
-            res.json({
+            res.status(404).json({
               status: 404,
               success: false,
               message: "User not found",
