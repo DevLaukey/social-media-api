@@ -5,9 +5,9 @@ post http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "username": "Victor",
-    "email": "laukeymwaura@gmail.com",
-    "password": "123456"
+    "username": "Mwaks",
+    "email": "good@mwaks.com",
+    "password": "password"
 }
 
 ###
@@ -15,8 +15,8 @@ post http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "Victor",  
-    "password": "123456"
+    "username": "Mwaks",  
+    "password": "password"
 }
 
 ###
@@ -24,32 +24,30 @@ post http://localhost:3000/add-posts
 Content-Type: application/json
 
 {
-   "url" : "https://www.instagram.com/static/images/homepage/screenshots/screenshot3.png/94edb770accf.png",
-   "heading": "instagram",
-   "description": "Working",
-   "likes": 3,
-   "userID": 1  
+   "url" : "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600",
+   "heading": "Art",
+   "description": "Art is a collection of images",
+   "likes": 0,
+   "userID": 24
+     
 }   
 
 ###
-post http://localhost:3000/add-comments/2
+post http://localhost:3000/add-comments/14
 Content-Type: application/json
 
 {
-    "comment": "This is a comment",
-    "userID": 1,
-    "postID": 2
+    "comment": "I love art",
+    "userID": 24,
+    "postID": 14
 }
 
 ###
-post http://localhost:3000/post/comments/reply/1
+post http://localhost:3000/post/comments/reply/
 Content-Type: application/json
 
 {
-    "reply": "This is a reply",
-    "userID": 1,
-    "commentID": 1
+    "reply": "Nicee Me too",
+    "userID": 24,
+    "commentID": 609
 }
-
-###
-get http://localhost:3000/post/comments/1

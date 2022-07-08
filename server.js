@@ -12,7 +12,7 @@ app.use(
     secret: "thisismysecrctekey",
     resave: false,
     saveUninitialized: true,
-    maxAge: 50000,
+    maxAge: 60000,
   })
 );
 

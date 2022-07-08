@@ -65,7 +65,7 @@ module.exports = {
             });
         })
         .catch((err) => {
-          res.status(501).send(err.message);
+          console.log(err.message);
         });
     } else {
       res.status(401).json({
@@ -77,29 +77,30 @@ module.exports = {
     }
   },
 
-  viewComments: async function (req, res) {
-    let pool = await poolPromise();
-    const id = req.params.postId;
-    pool
-      .query(`SELECT * FROM comments WHERE postID ='${id}'`) // to handle
-      .then((results) => {
-        results.recordset.length
-          ? res.json({
-              status: 200,
-              success: true,
-              message: "success",
-              results: results.recordset,
-            })
-          : res.json({
-              status: 200,
-              success: false,
-              message: "no records found",
-            });
-      });
-  },
-  // reply
+  // viewComments: async function (req, res) {
+  //   let pool = await poolPromise();
+  //   const id = req.params.postId;
+  //   pool
+  //     .query(`SELECT * FROM comments WHERE postID ='${id}'`) // to handle
+  //     .then((results) => {
+  //       results.recordset.length
+  //         ? res.json({
+  //             status: 200,
+  //             success: true,
+  //             message: "success",
+  //             results: results.recordset,
+  //           })
+  //         : res.json({
+  //             status: 200,
+  //             success: false,
+  //             message: "no records found",
+  //           });
+  //     });
+  // },
+  // replies
   addReply: async function (req, res) {
     let pool = await poolPromise();
+
     let { reply, userID, commentID } = req.body;
     if (userID) {
       pool
