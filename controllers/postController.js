@@ -51,21 +51,36 @@ module.exports = {
     if (id == postID) {
       pool
         .request()
-        .input("comment", comment)
+        // add a comment only if the user has not commented on the post
         .input("userID", userID)
         .input("postID", postID)
-        .execute(`dbo.add_comments`)
+
+        .execute(`dbo.verify`)
         .then((result) => {
-          result.rowsAffected &&
-            res.json({
-              status: 200,
+          if (result.recordset.length) {
+            // if the user has commented on the post
+            res.status(501).json({
+              status: 501,
               success: true,
-              message: "comment added successfully",
-              results: result.recordset,
+              message: "Already commented",
             });
+          } else {
+            pool
+              .request()
+              .input("comment", comment)
+              .input("userID", userID)
+              .input("postID", postID)
+              .execute(`dbo.add_comments`)
+              .then((result) => {
+                result.rowsAffected && res.send("comment added successfully");
+              })
+              .catch((err) => {
+                res.status(501).send(err.message);
+              });
+          }
         })
         .catch((err) => {
-          console.log(err.message);
+          console.log("asAS"+err.message);
         });
     } else {
       res.status(401).json({

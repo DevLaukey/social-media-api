@@ -33,13 +33,13 @@ Content-Type: application/json
 }   
 
 ###
-post http://localhost:3000/add-comments/14
+post http://localhost:3000/add-comments/11
 Content-Type: application/json
 
 {
     "comment": "I love art",
-    "userID": 24,
-    "postID": 14
+    "userID": 1,
+    "postID": 11
 }
 
 ###
@@ -47,7 +47,7 @@ post http://localhost:3000/post/comments/reply/
 Content-Type: application/json
 
 {
-    "reply": "Nicee Me too",
+    "reply": "Nicee, it working successfully",
     "userID": 24,
-    "commentID": 609
+    "commentID": 641
 }
