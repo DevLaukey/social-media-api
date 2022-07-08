@@ -64,9 +64,8 @@ module.exports = {
               results: result.recordset,
             });
         })
-        .then(console.log("Successfully added"))
         .catch((err) => {
-          console.log(err);
+          res.status(501).send(err.message);
         });
     } else {
       res.status(401).json({

@@ -28,7 +28,7 @@ Content-Type: application/json
    "heading": "instagram",
    "description": "Working",
    "likes": 3,
-   "userID": 1   
+   "userID": 1  
 }   
 
 ###
